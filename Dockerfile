@@ -13,9 +13,13 @@ WORKDIR /app
 COPY ["package.json", "package-lock.json", "./"]
 RUN apk add --upgrade --no-cache python3 make g++ 
 
-# Remove corepack and install pnpm globally using npm
-RUN corepack disable && npm install -g pnpm@8.4.0
+# Disable corepack entirely
+RUN corepack disable
 
+# Install pnpm manually
+RUN npm install -g pnpm@8.4.0
+
+# Install dependencies with pnpm
 RUN pnpm install
 RUN $NPM_BUILD
 
