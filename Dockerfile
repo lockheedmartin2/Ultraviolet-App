@@ -11,12 +11,11 @@ LABEL description="Example application of Ultraviolet which can be deployed in p
 WORKDIR /app
 
 COPY ["package.json", "package-lock.json", "./"]
-RUN apk add --upgrade --no-cache python3 make g++ 
 
-# Disable corepack entirely
-RUN corepack disable
+# Disable corepack and uninstall it entirely
+RUN corepack disable && apk del corepack
 
-# Install pnpm manually
+# Install pnpm manually via npm
 RUN npm install -g pnpm@8.4.0
 
 # Install dependencies with pnpm
